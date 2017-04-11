@@ -1,0 +1,23 @@
+{
+  "name": "littlething",
+  "version": "1.0.0",
+  "description": "天大的小事直报系统",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cilec/littleThing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cilec/littleThing/issues"
+  },
+  "homepage": "https://github.com/cilec/littleThing#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "officegen": "^0.4.4"
+  }
+}
