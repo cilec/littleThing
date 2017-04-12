@@ -12,13 +12,17 @@ var docx = officegen({
 docx.on('error', function (err) {
     console.log(err);
 });
+let pObj = docx.createP();
+pObj.options.align = 'center';
+pObj.addText("夷陵区食药监局办好“天大的小事”登记表", { font_size: 18, bold: true, font_face: '黑体' });
 var table = [
     [{
         val: "No.",
         opts: {
+            vAlign: 'center',
             cellColWidth: 4261,
             b: false,
-            sz: '48',
+            // sz: '48',//字体大小
             // shd: {
             //     // fill: "7F7F7F",//背景填充
             //     themeFill: "text1",//
@@ -29,9 +33,10 @@ var table = [
     }, {
         val: "Title1",
         opts: {
+            vAlign: 'center',
             b: true,
             color: "A00000",
-              vAlign: "center",
+            vAlign: "center",
             align: "center",
             // shd: {
             //     // fill: "92CDDC",
@@ -62,8 +67,9 @@ var table = [
 
 var tableStyle = {
     tableColWidth: 4261,
-    tableSize: 24,
-    tableColor: "ada",
+    tablevAlign:'center',
+    // tableSize: 24,
+    // tableColor: "ada",
     tableAlign: "center",
     tableFontFamily: "Microsoft Yahei",
     borders: true
