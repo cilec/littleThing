@@ -1,97 +1,25 @@
-var async = require('async');
-var officegen = require('officegen');
-
-var fs = require('fs');
-var path = require('path');
-var docx = officegen({
-    type: 'docx',
-    orientation: 'portrait'
-    // The theme support is NOT working yet...
-    // themeXml: themeXml
-});
-docx.on('error', function (err) {
-    console.log(err);
-});
-let pObj = docx.createP();
-pObj.options.align = 'center';
-pObj.addText("夷陵区食药监局办好“天大的小事”登记表", { font_size: 18, bold: true, font_face: '黑体' });
-var table = [
-    [{
-        val: "No.",
-        opts: {
-            vAlign: 'center',
-            cellColWidth: 4261,
-            b: false,
-            // sz: '48',//字体大小
-            // shd: {
-            //     // fill: "7F7F7F",//背景填充
-            //     themeFill: "text1",//
-            //     "themeFillTint": "80"
-            // },
-            fontFamily: "Avenir Book"
-        }
-    }, {
-        val: "Title1",
-        opts: {
-            vAlign: 'center',
-            b: true,
-            color: "A00000",
-            vAlign: "center",
-            align: "center",
-            // shd: {
-            //     // fill: "92CDDC",
-            //     themeFill: "text1",
-            //     "themeFillTint": "80"
-            // }
-        }
-    }, {
-        val: "Title2",
-        opts: {
-            align: "center",
-            vAlign: "center",
-            cellColWidth: 42,
-            b: true,
-            sz: '48',
-            // shd: {
-            //     fill: "92CDDC",
-            //     themeFill: "text1",
-            //     "themeFillTint": "80"
-            // }
-        }
-    }],
-    [1, 'ccccc', ''],
-    [2, 'there is no harm in putting off a piece of work until another day.', ''],
-    [3, 'But when it is a matter of baobabs, that always means a catastrophe.', ''],
-    [4, 'watch out for the baobabs!', 'END'],
-]
-
-var tableStyle = {
-    tableColWidth: 4261,
-    tablevAlign:'center',
-    // tableSize: 24,
-    // tableColor: "ada",
-    tableAlign: "center",
-    tableFontFamily: "Microsoft Yahei",
-    borders: true
-}
-
-docx.createTable(table, tableStyle);
-var out = fs.createWriteStream('tmp/out.docx');
-
-out.on('error', function (err) {
-    console.log(err);
-});
-async.parallel([
-    function (done) {
-        out.on('close', function () {
-            console.log('Finish to create a DOCX file.');
-            done(null);
-        });
-        docx.generate(out);
-    }
-
-], function (err) {
+'user strict'
+const fs = require('fs');
+const DOMParser = require('xmldom').DOMParser;
+fs.readFile('template.xml', 'utf-8', function (err, data) {
     if (err) {
-        console.log('error: ' + err);
-    } // Endif.
+        console.log(err);
+    } else {
+        // console.log(data);
+        let doc = new DOMParser().parseFromString(data, 'text/xml');
+        doc.getElementById('name').textContent = "cc";
+        doc.getElementById('name').textContent = "陈诚";
+        doc.getElementById('time').textContent = new Date().toLocaleDateString();
+        doc.getElementById('toWho').textContent = "涂涂";
+        doc.getElementById('type').textContent = "服务";
+        doc.getElementById('content').textContent = "摔了一跤";
+        fs.writeFile('output.xml', doc, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('ok.');
+            }
+        })
+        // console.log(doc.getElementById('title').textContent);
+    }
 });
