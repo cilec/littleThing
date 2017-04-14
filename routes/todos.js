@@ -1,7 +1,8 @@
+'use strict'
 var express = require('express');
 var router = express.Router();
 var AV = require('leanengine');
-
+const ouput = require('../output.js');
 // `AV.Object.extend` 方法一定要放在全局变量，否则会造成堆栈溢出。
 // 详见： https://leancloud.cn/docs/js_guide.html#对象
 var Todo = AV.Object.extend('Todo');
@@ -51,7 +52,8 @@ router.get('/', function (req, res, next) {
  * 定义路由：创建新的 todo
  */
 router.post('/', function (req, res, next) {
-  var { content, donetime, forWho, name, type } = req.body;
+  var { content,donetime, forWho, name, type } = req.body;
+  ouput.output(...req.body);
   switch (type) {
     case '服务':
       type = 1;
@@ -73,26 +75,27 @@ router.post('/', function (req, res, next) {
   }
   var todo = new Todo();
   // if (req.currentUser) {
-    todo.set('author', req.currentUser);
-    todo.set({
-      content,donetime,forWho,name,type
-      // 'content':content, 
-      // 'donetime':donetime, 
-      // 'forWho':forWho, 
-      // 'name':name, 
-      // 'type':type
-    })
-    // 设置 ACL，可以使该 todo 只允许创建者修改，其他人只读
-    // 更多的 ACL 控制详见： https://leancloud.cn/docs/js_guide.html#其他对象的安全
-    var acl = new AV.ACL(req.currentUser);
-    acl.setPublicReadAccess(true);
-    todo.setACL(acl);
+  todo.set('author', req.currentUser);
+  todo.set({
+    content, donetime, forWho, name, type
+    // 'content':content, 
+    // 'donetime':donetime, 
+    // 'forWho':forWho, 
+    // 'name':name, 
+    // 'type':type
+  })
+  // 设置 ACL，可以使该 todo 只允许创建者修改，其他人只读
+  // 更多的 ACL 控制详见： https://leancloud.cn/docs/js_guide.html#其他对象的安全
+  var acl = new AV.ACL(req.currentUser);
+  acl.setPublicReadAccess(true);
+  todo.setACL(acl);
   // }
 
 
   todo.save(null, { sessionToken: req.sessionToken }).then(function (todo) {
     res.redirect('/todos');
   }).catch(next);
+
 });
 
 /**
