@@ -9,10 +9,14 @@ fs.readFile('template.xml', 'utf-8', function (err, data) {
         let doc = new DOMParser().parseFromString(data, 'text/xml');
         doc.getElementById('name').textContent = "cc";
         doc.getElementById('name').textContent = "陈诚";
-        doc.getElementById('time').textContent = new Date().toLocaleDateString();
+        doc.getElementById('time').textContent = "2017-4-14";
         doc.getElementById('toWho').textContent = "涂涂";
         doc.getElementById('type').textContent = "服务";
-        doc.getElementById('content').textContent = "摔了一跤";
+        let teststr = ``;
+        for (let i = 0; i < 300; i++) {
+            teststr += "测试";
+        }
+        doc.getElementById('content').textContent = teststr;
         fs.writeFile('output.xml', doc, (err) => {
             if (err) {
                 console.log(err);
