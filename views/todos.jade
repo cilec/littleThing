@@ -6,41 +6,57 @@ block content
   #createTodo
     form(action='/todos', method='POST')
       .form-group
-      .dropdown  
-        input.form-control(type='input', name='content')
-        input.btn.btn-default(type='submit', value='新增')
+        label(for='name') 单位或个人名称
+        input#name.form-control(name='name' type='text', placeholder='请填写单位或个人名称')
+      .form-group
+        label(for='donetime') 办理时间
+        input#donetime.form-control(name='donetime' type='text', placeholder='请填写办理日期，格式为：4-14')
+      .form-group
+        label(for='forWho') 办事对象
+        input#forWho.form-control(name='forWho' type='text', placeholder='请填写办事对象名称，如：张三（可以填单位名称）')
+      .form-group
+        label 事情类别
+        select.form-control(name='type')
+          option(value='1') 服务
+          option(value='2') 民生
+          option(value='3') 发展
+          option(value='4') 环境
+          option(value='5') 管理
+      .form-group
+        label 主要内容（事情的简单介绍300字以内即可）
+        textarea.form-control(name='content' rows='5')
+      input.btn.btn-success(type='submit',value='提交并下载word版') 
+  //- h2 TODO 列表
+  //- div
+  //-   a.btn.btn-default(href='/todos', role='button') 未完成
+  //-   a.btn.btn-default(href='/todos?status=1', role='button') 已完成
 
-  h2 TODO 列表
-  div
-    a.btn.btn-default(href='/todos', role='button') 未完成
-    a.btn.btn-default(href='/todos?status=1', role='button') 已完成
+  //- #errMsg
+  //-   if errMsg
+  //-     pre= errMsg
 
-  #errMsg
-    if errMsg
-      pre= errMsg
-
-  div
-    table.table
-      thead
-        colgroup
-          col.col-xs-10
-          col.col-xs-1
-          col.col-xs-1
-        tr
-          th 描述
-          th 标签
-          th 所有者
-          th 操作
-      each todo in todos
-        tr
-          td
-            form(action='/todos/#{todo.id}/#{status == 0 ? "done" : "undone" }', method='POST')
-              .checkbox
-                label
-                  input(type='checkbox', checked=(todo.get('status') == 1), onClick='submit()')
-                  | #{todo.get('content')}
-          td= todo.get('tags') == null ? '' : todo.get('tags').join(',')
-          td= todo.get('author') == null ? '' : todo.get('author').get('username')
-          td
-            form(action='/todos/#{todo.id}?_method=DELETE&status=#{status}', method='POST')
-              input.btn.btn-default(type='submit', value='删除')
+  //- div
+  //-   table.table
+  //-     thead
+  //-       colgroup
+  //-         col.col-xs-10
+  //-         col.col-xs-1
+  //-         col.col-xs-1
+  //-       tr
+  //-         th 描述
+  //-         th 标签
+  //-         th 所有者
+  //-         th 操作
+  //-     each todo in todos
+  //-       tr
+  //-         td
+  //-           form(action='/todos/#{todo.id}/#{status == 0 ? "done" : "undone" }', method='POST')
+  //-             .checkbox
+  //-               label
+  //-                 input(type='checkbox', checked=(todo.get('status') == 1), onClick='submit()')
+  //-                 | #{todo.get('content')}
+  //-         td= todo.get('tags') == null ? '' : todo.get('tags').join(',')
+  //-         td= todo.get('author') == null ? '' : todo.get('author').get('username')
+  //-         td
+  //-           form(action='/todos/#{todo.id}?_method=DELETE&status=#{status}', method='POST')
+  //-             input.btn.btn-default(type='submit', value='删除')
