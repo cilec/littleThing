@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 var express = require('express');
 var router = express.Router();
 var AV = require('leanengine');
@@ -52,27 +52,33 @@ router.get('/', function (req, res, next) {
  * 定义路由：创建新的 todo
  */
 router.post('/', function (req, res, next) {
-  var { content,donetime, forWho, name, type } = req.body;
-  ouput.output(...req.body);
-  switch (type) {
-    case '服务':
-      type = 1;
-      break;
-    case '民生':
-      type = 2;
-      break;
-    case '发展':
-      type = 3;
-      break;
-    case '环境':
-      type = 4;
-      break;
-    case '管理':
-      type = 5;
-      break;
-    default:
-      break;
-  }
+  let { content, donetime, forWho, name, type } = req.body;
+
+  // let content = req.body.content,
+  //   donetime = req.body.donetime,
+  //   forWho = req.body.forWho,
+  //   name = req.body.name,
+  // type = req.body.type;
+  ouput.output(content, donetime, forWho, name, type);
+  // switch (type) {
+  //   case '服务':
+  //     type = 1;
+  //     break;
+  //   case '民生':
+  //     type = 2;
+  //     break;
+  //   case '发展':
+  //     type = 3;
+  //     break;
+  //   case '环境':
+  //     type = 4;
+  //     break;
+  //   case '管理':
+  //     type = 5;
+  //     break;
+  //   default:
+  //     break;
+  // }
   var todo = new Todo();
   // if (req.currentUser) {
   todo.set('author', req.currentUser);
