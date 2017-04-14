@@ -1,11 +1,12 @@
 extends layout
 
 block content
-  h1 TODO
+  h1 请完成表单
   
   #createTodo
     form(action='/todos', method='POST')
       .form-group
+      .dropdown  
         input.form-control(type='input', name='content')
         input.btn.btn-default(type='submit', value='新增')
 
