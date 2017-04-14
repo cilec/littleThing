@@ -1,0 +1,9 @@
+diff a/server.js b/server.js	(rejected hunks)
+@@ -9,6 +9,7 @@
+     // The theme support is NOT working yet...
+     // themeXml: themeXml
+ });
++
+ docx.on('error', function (err) {
+     console.log(err);
+ });
