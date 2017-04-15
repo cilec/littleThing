@@ -1,5 +1,6 @@
 'user strict'
 const fs = require('fs');
+const uuid = require('uuid/v1');
 const path = require('path');
 const DOMParser = require('xmldom').DOMParser;
 function output(content, donetime, forWho, name, type) {
@@ -32,33 +33,22 @@ function output(content, donetime, forWho, name, type) {
     // doc.getElementById('content').textContent = content;
     // let fileDate = new Date();
     // fs.writeFileSync(path.join(__dirname, `${fileDate.getMonth() + 1}月${fileDate.getDate()}日${fileDate.getHours()}:${fileDate.getMinutes()}(${name}).xml`), doc);
-
-
-    fs.readFile(path.join(__dirname, 'template.xml'), 'utf-8', function (err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            // console.log(data);
-            let doc = new DOMParser().parseFromString(data, 'text/xml');
-            doc.getElementById('name').textContent = name;
-            doc.getElementById('time').textContent = donetime;
-            doc.getElementById('toWho').textContent = forWho;
-            doc.getElementById('type').textContent = type;
-            doc.getElementById('content').textContent = content;
-            let fileDate = new Date();
-            // fs.writeFile(`./(${formatTime(fileDate)})${name}.xml`, doc, function (err) {
-            fs.writeFile(`(${formatTime(fileDate).toString()})${name}.xml`, doc, function (err) {
-                console.log(path.parse(err.path));
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('ok.');
-                }
-            })
-            // console.log(doc.getElementById('title').textContent);
-        }
-    });
-
+    try {
+        let filename = '';
+        let data = fs.readFileSync(path.join(__dirname, 'template.xml'), 'utf-8');
+        let doc = new DOMParser().parseFromString(data, 'text/xml');
+        doc.getElementById('name').textContent = name;
+        doc.getElementById('time').textContent = donetime;
+        doc.getElementById('toWho').textContent = forWho;
+        doc.getElementById('type').textContent = type;
+        doc.getElementById('content').textContent = content;
+        filename = name + uuid() + '.xml';
+        fs.writeFileSync(filename, doc);
+        return filename;
+    }
+    catch (e) {
+        console.log(e)
+    }
 }
 function formatTime(date) {
     var year = date.getFullYear()
@@ -70,7 +60,7 @@ function formatTime(date) {
     var second = date.getSeconds()
 
 
-    return [year, month, day].map(formatNumber).join('') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+    return [year, month, day].map(formatNumber).join('') + '\ ' + [hour, minute].map(formatNumber).join('\:')
 }
 
 function formatNumber(n) {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <?mso-application progid="Word.Document"?>
 <pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
     <pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml" pkg:padding="512">
@@ -183,14 +183,6 @@
                                             <w:szCs w:val="28" />
                                         </w:rPr>
                                         <w:t id="time">2017.4.</w:t>
-                                    </w:r>
-                                    <w:r w:rsidR="007033C9">
-                                        <w:rPr>
-                                            <w:rFonts w:ascii="仿宋_GB2312" w:eastAsia="仿宋_GB2312" w:hAnsi="仿宋" w:hint="eastAsia" />
-                                            <w:sz w:val="28" />
-                                            <w:szCs w:val="28" />
-                                        </w:rPr>
-                                        <w:t>7</w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>

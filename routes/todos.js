@@ -59,7 +59,7 @@ router.post('/', function (req, res, next) {
   //   forWho = req.body.forWho,
   //   name = req.body.name,
   // type = req.body.type;
-  ouput.output(content, donetime, forWho, name, type);
+  let downfile = ouput.output(content.trim(), donetime.trim(), forWho.trim(), name.trim(), type.trim());
   // switch (type) {
   //   case '服务':
   //     type = 1;
@@ -83,6 +83,7 @@ router.post('/', function (req, res, next) {
   // if (req.currentUser) {
   todo.set('author', req.currentUser);
   todo.set({
+  
     content, donetime, forWho, name, type
     // 'content':content, 
     // 'donetime':donetime, 
@@ -99,7 +100,7 @@ router.post('/', function (req, res, next) {
 
 
   todo.save(null, { sessionToken: req.sessionToken }).then(function (todo) {
-    res.redirect('/todos');
+    res.download(`${downfile}`);
   }).catch(next);
 
 });
