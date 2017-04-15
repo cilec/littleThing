@@ -46,7 +46,9 @@ function output(content, donetime, forWho, name, type) {
             doc.getElementById('type').textContent = type;
             doc.getElementById('content').textContent = content;
             let fileDate = new Date();
-            fs.writeFile(path.join(__dirname,`(${formatTime(fileDate)})${name}.xml`), doc, function (err) {
+            // fs.writeFile(`./(${formatTime(fileDate)})${name}.xml`, doc, function (err) {
+            fs.writeFile(`(${formatTime(fileDate).toString()})${name}.xml`, doc, function (err) {
+                console.log(path.parse(err.path));
                 if (err) {
                     console.log(err);
                 } else {
@@ -68,7 +70,7 @@ function formatTime(date) {
     var second = date.getSeconds()
 
 
-    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+    return [year, month, day].map(formatNumber).join('') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
 function formatNumber(n) {
