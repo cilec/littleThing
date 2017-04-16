@@ -13,9 +13,9 @@ window.onload = () => {
 }
 function check() {
     let name = document.myform.name.value.trim(),
-        donetime = document.myform.donetime.trim(),
-        forWho = document.myform.forWho.trim(),
-        content = document.myform.content.trim();
+        donetime = document.myform.donetime.value.trim(),
+        forWho = document.myform.forWho.value.trim(),
+        content = document.myform.content.value.trim();
     if (name === "" || name === null) {
         alert("未填写单位名称");
         return false;
