@@ -3,7 +3,7 @@ const fs = require('fs');
 const uuid = require('uuid/v1');
 const path = require('path');
 const DOMParser = require('xmldom').DOMParser;
-function output(content, donetime, forWho, name, type) {
+function output(content, donetime, forWho, name, type, person) {
     switch (type) {
         case '1':
             type = '服务';
@@ -37,7 +37,12 @@ function output(content, donetime, forWho, name, type) {
         let filename = '';
         let data = fs.readFileSync(path.join(__dirname, 'template.xml'), 'utf-8');
         let doc = new DOMParser().parseFromString(data, 'text/xml');
-        doc.getElementById('name').textContent = name;
+        if (person == "" || person == null) {
+            doc.getElementById('name').textContent = name;
+        }
+        else {
+            doc.getElementById('name').textContent = name + person;
+        }
         doc.getElementById('time').textContent = donetime;
         doc.getElementById('toWho').textContent = forWho;
         doc.getElementById('type').textContent = type;

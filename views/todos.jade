@@ -4,10 +4,45 @@ block content
   h1 请完成表单
   
   #createTodo
-    form(action='/todos', method='POST')
+    form(action='/todos' name="myform" method='POST' onSubmit="return check();")
       .form-group
-        label(for='name') 单位或个人名称
-        input#name.form-control(name='name' type='text', placeholder='请填写单位或个人名称')
+        label 请填写单位或科室名称
+        select.form-control(name='name')
+          option 雾渡河监管所
+          option 樟村坪监管所
+          option 下堡坪监管所
+          option 分乡监管所
+          option 黄花监管所
+          option 邓村监管所
+          option 太平溪监管所
+          option 三斗坪监管所
+          option 乐天溪监管所
+          option 鸦鹊岭监管所
+          option 龙泉监管所
+          option 小溪塔监管所
+          option 稽查分局
+          option 办公室
+          option 政工科
+          option 消费监管科
+          option 生产监管科
+          option 流通监管科
+          option 药械化监管科
+          option 行政审批科
+          option 政策法规科          
+      .form-group
+        label 是单位小事还是个人小事
+        .radio
+          label
+            input#optionsRadios1(type="radio", name="optionsRadios", value="option1")
+            |     单位
+        .radio
+          label
+            input#optionsRadios2(type="radio", name="optionsRadios", value="option2")
+            |     个人
+        
+      .form-group
+        label(for='person') 如果为个人小事请填写姓名，单位小事不用填
+        input#person.form-control(name='person' type='text', placeholder='请填写姓名' disabled)
       .form-group
         label(for='donetime') 办理时间
         input#donetime.form-control(name='donetime' type='text', placeholder='请填写办理日期，格式为：4-14')
@@ -26,6 +61,7 @@ block content
         label 主要内容（事情的简单介绍300字以内即可）
         textarea.form-control(name='content' rows='5')
       input.btn.btn-success(type='submit',value='提交并下载word版') 
+  
   //- h2 TODO 列表
   //- div
   //-   a.btn.btn-default(href='/todos', role='button') 未完成

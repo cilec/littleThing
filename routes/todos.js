@@ -52,14 +52,14 @@ router.get('/', function (req, res, next) {
  * 定义路由：创建新的 todo
  */
 router.post('/', function (req, res, next) {
-  let { content, donetime, forWho, name, type } = req.body;
+  let { content, donetime, forWho, name, type, person } = req.body;
 
   // let content = req.body.content,
   //   donetime = req.body.donetime,
   //   forWho = req.body.forWho,
   //   name = req.body.name,
   // type = req.body.type;
-  let downfile = ouput.output(content.trim(), donetime.trim(), forWho.trim(), name.trim(), type.trim());
+  let downfile = ouput.output(content, donetime, forWho, name, type, person);
   // switch (type) {
   //   case '服务':
   //     type = 1;
@@ -83,8 +83,8 @@ router.post('/', function (req, res, next) {
   // if (req.currentUser) {
   todo.set('author', req.currentUser);
   todo.set({
-  
-    content, donetime, forWho, name, type
+
+    content, donetime, forWho, name, type, person
     // 'content':content, 
     // 'donetime':donetime, 
     // 'forWho':forWho, 
