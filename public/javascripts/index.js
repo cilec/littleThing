@@ -32,5 +32,6 @@ function check() {
         alert("未填写主要内容");
         return false;
     }
+    $('#btn').attr('disabled','disabled');
     return true;
 }

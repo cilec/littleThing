@@ -8,6 +8,7 @@ block content
       .form-group
         label 请填写单位或科室名称
         select.form-control(name='name')
+          option 局领导
           option 雾渡河监管所
           option 樟村坪监管所
           option 下堡坪监管所
@@ -28,7 +29,8 @@ block content
           option 流通监管科
           option 药械化监管科
           option 行政审批科
-          option 政策法规科          
+          option 政策法规科
+          option 综合科          
       .form-group
         label 是单位小事还是个人小事
         .radio
@@ -60,7 +62,7 @@ block content
       .form-group
         label 主要内容（事情的简单介绍300字以内即可）
         textarea.form-control(name='content' rows='5')
-      input.btn.btn-success(type='submit',value='提交并下载word版') 
+      input#btn.btn.btn-success(type='submit',value='提交并下载word版') 
   
   //- h2 TODO 列表
   //- div
